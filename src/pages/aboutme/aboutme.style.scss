@@ -1,0 +1,173 @@
+@import '../../assets/mixins/mixins.scss';
+
+.aboutme {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+
+    &__image {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    &__content {
+        display: inline-flex;
+        flex-direction: column;
+
+        &__title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 45px;
+            color: #5b5c5b;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        &__text {
+            font-family: 'Montserrat', sans-serif;
+            text-align: justify;
+            margin-top: 20px;
+        }
+
+        &__buttons {
+            display: inline-flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 20px;
+
+            &__CTA {
+                display: inline-block;
+                padding: 10px 20px;
+                border: solid 2px #5b5c5b;
+                font-family: 'Montserrat', sans-serif;
+                cursor: pointer;
+                transition: ease-in-out .3s;
+                user-select: none;
+                font-size: 26px;
+                text-align: center;
+                margin-bottom: 20px;
+    
+                &:active {
+                    color: #fff;
+                    border-color: #5b5c5b;
+                    background-color: #5b5c5b;
+                }
+            }
+        }
+
+        
+    }
+}
+
+@include tablet-p {
+    .aboutme {  
+        padding: 0 20px;
+
+        &__content {
+            &__buttons {
+                width: 100%;
+                margin-bottom: 40px;
+            }
+        }
+    }
+}
+
+@include desktop {
+    .aboutme {
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+        max-width: unset;
+        margin: auto;
+
+        &__image {
+            width: 50%;
+            max-width: 700px;
+            margin: auto 0 auto auto;
+        }
+
+        &__content {
+            padding: 0 0 0 40px;
+            width: 50%;
+            min-width: 300px;
+            max-width: 700px;
+            margin: auto 0;
+
+            &__title {
+                font-size: 55px;
+                text-align: left;
+            }
+
+            &__text {
+                text-align: left;
+                margin-top: 20px;
+                padding: 0;
+                width: 95%;
+                max-width: 550px;
+                font-size: 16px;
+            }
+
+            &__buttons {
+                display: inline-flex;
+                flex-direction: row;
+                width: 95%;
+                max-width: 550px;
+
+                &__CTA {
+                    padding: 10px 0px;
+                    border: solid 2px #5b5c5b;
+                    cursor: pointer;
+                    font-size: 1.4vw;
+                    width: 13.5vw;
+                    white-space: nowrap;
+    
+                    &:hover {
+                        color: #fff;
+                        border-color: #5b5c5b;
+                        background-color: #5b5c5b;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+@include desktop-big {
+    .aboutme {
+        height: 100%;
+
+        &__image {
+            width: 45%;
+        }
+
+        &__content {
+            width: 45%;
+            max-width: 650px;
+            margin: auto;
+
+            &__title {
+                font-size: 100px;
+                text-align: left;
+            }
+
+            &__text {
+                width: 580px;
+                max-width: unset;
+                font-size: 22px;
+            }
+
+            &__buttons {
+                width: 580px;
+                max-width: unset;
+
+                &__CTA {
+                    font-size: 28px;
+                    width: 250px;
+                }
+            }
+        }
+    }
+}

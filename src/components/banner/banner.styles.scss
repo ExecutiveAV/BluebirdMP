@@ -1,0 +1,147 @@
+@import '../../assets/mixins/mixins.scss';
+
+.banner {
+    width: 100%;
+    height: min-content;
+    display: inline-flex;
+    text-align: center;
+    justify-content: space-around;
+    border-bottom: #d2effe solid 2px;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background-color: #FFF;
+
+    & .menu-clicker {
+        height: 0px;
+        width: 0px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #ffffff(255, 255, 255, 0);
+        z-index: 45;
+        display: none;
+        visibility: 0;
+
+        &.open {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+    }
+
+    &__menu-container {
+        position: absolute;
+        display: inline-block;
+        cursor: pointer;
+        z-index: 10;
+        align-self: center;
+        margin-right: auto;
+        left: 0px;
+
+        &__bar1, &__bar2, &__bar3 {
+            width: 35px;
+            height: 2px;
+            background-color: #333;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        &__bar2 {
+            width: 17px;
+        }
+
+        .change &__bar1 {
+            -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+            transform: rotate(-45deg) translate(-8px, 6px);
+        }
+
+        .change &__bar2 {
+            opacity: 0;
+        }
+
+        .change &__bar3 {
+            -webkit-transform: rotate(45deg) translate(-8px, -8px);
+            transform: rotate(45deg) translate(-4px, -5px);
+        }
+
+        &.change {
+            left: 10px;
+        }
+    }
+
+    &__logo {
+        position: relative;
+        height: min-content;
+        display: inline-block;
+        margin-right: auto;
+        margin-left: auto;
+        z-index: 50;
+        width: 180px;
+
+        &__src {
+            width: 180px;
+            
+        }
+    }
+
+    &__line {
+        display: none;
+    }
+}
+
+@include tablet-p {
+    .banner {
+        width: 100%;
+        height: min-content;
+        display: inline-flex;
+        border: none;
+        padding-right: 20px;
+
+        &__menu-container {
+            display: none;
+        }
+
+        &__logo {
+            width: auto;
+            height: 58px;
+
+            &__src {
+                height: 100%;
+                width: auto;
+            }
+        }
+
+        &__line {
+            margin: auto 0 auto;
+            height: 1px;
+            display: inline-block;
+            width: 100%;
+            border-bottom: solid #d2effe 4px;
+        }
+    }
+}
+
+@include desktop {
+    .banner {
+        position: fixed;
+        width: 100%;
+        height: min-content;
+        display: inline-flex;
+        margin: 0;
+        top: 0;
+        left: 20px;
+
+        &__logo {
+            height: 70px;
+        }
+
+        &__line {
+            margin: auto 0 auto;
+            height: 1px;
+            display: inline-block;
+            width: 100%;
+            border-bottom: solid #d2effe 4px;
+        }
+    }
+}

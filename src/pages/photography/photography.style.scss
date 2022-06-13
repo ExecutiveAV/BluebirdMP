@@ -1,0 +1,105 @@
+@import '../../assets/mixins/mixins.scss';
+
+.studio {
+    height: 100vh;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0 40px;
+    width: 100%;
+
+    &__pages {
+        height: calc(100% - 60px);
+        margin-top: 0;
+        display: flex;
+
+        &__content {
+            width: 100%;
+            margin-left: auto;
+            height: 100%;
+            overflow-x: hidden;
+        }
+    }
+}
+
+@include tablet-p {
+    .studio {
+        height: 100vh;
+        width: 100%;
+        display: inline-flex;
+        flex-direction: column;
+        padding: 0 0 0 40px;
+    
+        &__pages {
+            height: min-content;
+            display: inline-flex;
+            margin: 0;
+    
+            &__content {
+                display: inline-block;
+                top: 58px;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin-left: 196px;
+                overflow-x: hidden;
+                overflow-y: hidden;
+
+                &__container {
+                    width: 100%;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
+@include desktop {
+    .studio {
+        height: 100%;
+        display: inline-flex;
+        padding: 0px;
+        width: 100%;
+        margin: 0;
+        overflow-y: hidden;
+    
+        &__pages {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+    
+            &__content {
+                width: 100%;
+                overflow-x: hidden;
+                padding: 0;
+                margin: 0;
+                margin-left: 256px;
+                overflow-y: visible;
+                display: inline-flex;
+                flex-direction: column;
+                justify-content: center;
+
+                &__container {
+                    min-height: calc(100vh - 80px);
+                    overflow-y: visible;
+                    margin-top: 80px;
+                    height: min-content;
+                    display: inline-flex;
+                }
+
+            }
+        }
+    }
+}
+
+@include desktop-big {
+    .studio {
+        &__pages {
+            &__content{ 
+
+                &__container {
+                }
+            }
+        }
+    }
+}

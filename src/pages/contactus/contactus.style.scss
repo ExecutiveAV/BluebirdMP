@@ -1,0 +1,257 @@
+@import "../../assets/mixins/mixins.scss";
+
+.contactus {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column-reverse;
+    margin-top: 20px;
+
+    &__banner {
+        width: 100%;
+        display: inline-flex;
+        flex-direction: column;
+        margin-top: 20px;
+
+        &__src {
+            display: block;
+            width: 100%;
+        }
+
+        &__socialmedia {
+            display: inline-flex;
+            margin: 20px auto 20px;
+            width: min-content;
+            
+
+            &__ig {
+                margin: 0;
+                width: 65px;
+                height: 65px;
+            }
+
+            &__text {
+                font-family: 'Montserrat', sans-serif;
+                height: 50px;
+                display: inline-flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-self: center;
+                margin-left: 20px;
+
+                &__handler {
+                    font-weight: bold;
+                    display: block;
+                }
+            }
+        }
+    }
+
+    &__content {
+        display: inline-flex;
+        flex-direction: column;
+        margin: auto 0;
+
+        &__title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 60px ;
+            text-align: center;
+        }
+
+        &__info {
+            display: inline-flex;
+            flex-direction: column;
+            height: 60px;
+            justify-content: space-between;
+            text-align: center;
+            margin: 60px 0;
+
+
+            &__text {
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            & .bold {
+                font-weight: bold;
+            }
+        }
+        
+        &__address {
+            display: inline-flex;
+            margin: 0 auto;
+
+            &__logo {
+                width: 120px;
+                height: 80px;
+                margin-right: 20px;
+            }
+
+            &__text {
+                text-align: center;
+                align-self: center;
+
+                &__line {
+                    font-family: 'Montserrat', sans-serif;
+                }
+            }
+        }
+    }
+}
+
+@include tablet-p {
+    .contactus {
+        display: inline-flex;
+        width: 100%;
+        padding:  0 20px;
+        height: 100%;
+        margin-top: 0;
+    
+        &__banner {
+            width: 100%;
+            display: inline-flex;
+            flex-direction: column;
+            margin: 20px auto 0;
+    
+            &__src {
+                display: block;
+                width: 100%;
+                max-width: 750px;
+            }
+    
+            &__socialmedia {
+                display: inline-flex;
+                margin: 20px auto 0;
+    
+                &__ig {
+                    width: 50px;
+                    height: 50px;
+                    margin: auto 0;
+                }
+    
+                &__text {
+                    height: 50px;
+                    display: inline-flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    margin-left: 20px;
+    
+                    &__handler {
+                        font-weight: bold;
+                        display: block;
+                    }
+                }
+            }
+        }
+    
+        &__content {
+            display: inline-flex;
+            flex-direction: column;
+            margin: auto 0;
+    
+            &__title {
+                font-size: 60px ;
+            }
+    
+            &__info {
+                display: inline-flex;
+                flex-direction: column;
+                height: 60px;
+                justify-content: space-between;
+                text-align: center;
+                margin: 60px 0;
+    
+    
+                &__text {
+                }
+    
+                & .bold {
+                    font-weight: bold;
+                }
+            }
+            
+            &__address {
+                display: inline-flex;
+                width: 280px;
+                margin: 0 auto;
+    
+                &__logo {
+                    width: 120px;
+                    height: 80px;
+                    margin-right: 20px;
+                }
+    
+                &__text {
+                    text-align: center;
+                    align-self: center;
+    
+                    &__line {
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include desktop {
+    .contactus {
+        flex-direction: row;
+        height: 100%;
+        padding: 0 0 0 20px;
+        margin: auto 0;
+
+        &__banner {
+            margin: auto 0;
+            width: 55%;
+            height: 100%;
+            justify-content: center;
+
+            &__src {
+                width: auto;
+                max-width: none;
+            }
+        }
+
+        &__content {
+            margin: auto ;
+            width: 40%;
+            align-self: center;
+            height: 100%;
+            justify-content: center;
+
+            &__title {
+                font-size: 5vw;
+                margin-bottom: 0;
+            }
+
+            &__info {
+                margin-top: 2.2vw;
+                margin-bottom: 0;
+
+                &__text {
+                    font-size: 1.7vw;
+                }
+            }
+
+            &__address {
+                width: 100%;
+                margin-top: 12.5%;
+                text-align: center;
+                justify-content: space-evenly;
+
+                &__logo {
+
+                }
+                &__text {
+                    &__line {
+                        font-size: 1.5vw;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include desktop-big {
+    .contactus {
+    }
+}

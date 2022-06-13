@@ -1,0 +1,129 @@
+@import '../../assets/mixins/mixins.scss';
+
+.menu {
+    position: fixed;
+    top: 60px;
+    left: 0px;
+    width: 100%;
+    z-index: 55;
+    background-color: #d9d9d9d4;
+    text-align: center;
+    transition: all ease-in 1s;
+    opacity: 100%;
+    padding-top: 40px;
+    
+    &__link {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 40px;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-family: 'Cormorant Garamond', serif;
+
+        &.active {
+            text-decoration: underline;
+            & .container {
+                display: inline-flex;
+                flex-direction: column;
+                font-size: 16px;
+                color: #5b5c5b;
+                text-transform: uppercase;
+                margin-left: 20px;
+                pointer-events: none;
+
+                &__sublink {
+                    flex: 1;
+                    height: 100%;
+                    z-index: 5;
+                    pointer-events: visible;
+
+                    &.active {
+                        text-decoration: underline;
+                    }
+                }
+            }
+            
+        }
+
+        & .container {
+            display: none;
+        }
+
+    }
+
+
+    &__link.active:first-of-type {
+        text-decoration: none;
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    &__link.active {
+        & .container {
+
+            &__sublink {
+                margin-top: 40px;
+            }
+        }
+    }
+
+    &.hidden {
+        display: none;
+        top: -80px;
+        height: 0px;
+        transition: all ease-in 1s;
+        opacity: 0;
+    }
+}
+
+@include tablet-p {
+    .menu {
+        display: block;
+        text-align: left;
+        position: fixed;
+        top: 58px;
+        left: 40px;
+        border-right: 4px #d2effe solid;
+        width: 196px;
+        height: calc(100vh - 98px);
+        transition: none;
+        opacity: 1;
+        background-color: #fff;
+
+        &.hidden {
+            display: block;
+            text-align: left;
+            position: fixed;
+            top: 58px;
+            left: 40px;
+            border-right: 4px #d2effe solid;
+            width: 196px;
+            height: calc(100vh - 98px);
+            transition: none;
+            opacity: 1;
+            background-color: #fff;
+        }
+    }
+}
+
+@include desktop {
+    .menu {
+        display: inline-block;
+        top: 80px;
+        left: 0;
+        border-right: 4px #d2effe solid;
+        width: 256px;
+        height: 90%;
+        padding-left: 40px;
+
+        &.hidden {
+            display: inline-block;
+            top: 80px;
+            left: 0;
+            border-right: 4px #d2effe solid;
+            width: 256px;
+            height: 90%;
+            padding-left: 40px;
+        }
+    }
+}

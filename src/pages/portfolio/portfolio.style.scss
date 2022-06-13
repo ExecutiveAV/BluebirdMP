@@ -1,0 +1,33 @@
+@import '../../assets/mixins/mixins.scss';
+
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    padding-top: 20px;
+}
+
+@include tablet-p {
+    .portfolio-container {
+        gap: 40px;
+        justify-items: center;
+        padding-top: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@include desktop {
+    .portfolio-container {
+        grid-template-columns: repeat(4, 1fr);
+        height: min-content;
+        margin: auto;
+    }
+}
+
+@include desktop-big {
+    .portfolio-container {
+        margin: auto;
+    }
+}

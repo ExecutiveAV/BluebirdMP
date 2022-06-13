@@ -1,0 +1,61 @@
+@import '../../assets/mixins/mixins.scss';
+
+.footer {
+    align-self: center;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+
+    &__logo {
+        width: 180px;
+        margin: 0 auto;
+
+        &__src {
+            width: 100%;
+        }
+    }
+
+    &__links {
+        font-size: 6px;
+        text-align: center;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        width: 100%;
+
+        & .separator {
+            margin: 0 3px;
+        }
+    }
+}
+
+@include tablet-p {
+    .footer {
+        width: 100%;
+        margin-top: 20px;
+
+        &__logo {
+            margin-bottom: 20px;
+        }
+
+        &__links {
+            font-size: 14px;
+            width: 100%;
+            padding: 0;
+        }
+    }
+}
+
+@include desktop {
+    .footer {
+
+        &__logo {
+            width: 300px;
+        }
+
+        &__links {
+            font-size: 24px;
+            width: 100%;
+            padding: 0; 
+        }
+    }
+}
