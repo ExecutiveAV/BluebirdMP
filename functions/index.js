@@ -15,7 +15,7 @@ const TEMPLATE_ID = functions.config().sendgrid.template;
 sgMail.setApiKey(API_KEY);
 
 exports.bookingEmail = functions.https.onCall((data, contetx) => {
-  const { firstName, lastName, email, phoneNumber, typeOfSession, day, time, message } = data;
+  const { firstName, lastName, email, phoneNumber, typeOfSession, date, time, message } = data;
   const confirmationNumber = "696969";
 
   const msg = {
@@ -28,7 +28,7 @@ exports.bookingEmail = functions.https.onCall((data, contetx) => {
       lastName: lastName,
       confirmationNumber: confirmationNumber,
       typeOfSession: typeOfSession,
-      date: day,
+      date: date,
       time: time,
     },
   };

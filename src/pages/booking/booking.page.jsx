@@ -4,13 +4,16 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { Calendar } from 'react-date-range';
 import { initializeApp } from 'firebase/app';
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+
+import firebaseConfig from '../../firebaseConfig';
 
 import banner from '../../assets/images/bookings.png';
 
 import "./booking.style.scss";
 
 const Booking = () => {
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState("");
     const [calendar, toggleCalendar] = useState(false);
     const [booking, setBooking] = useState("");
     const [submission, setSubmission] =useState(false);
@@ -20,9 +23,9 @@ const Booking = () => {
     const [email, setEmail] = useState("");
     const [session, setSession] = useState("");
     const [formattedDate, setFormattedDate] = useState("")
-    const [hour, setHour] = useState("");
-    const [minutes, setMinutes] = useState("");
-    const [daytime, setDaytime] = useState("");
+    const [hour, setHour] = useState("08");
+    const [minutes, setMinutes] = useState("00");
+    const [daytime, setDaytime] = useState("PM");
     const [message, setMessage] = useState("")
 
     const ifEmpty = string => {
@@ -68,15 +71,23 @@ const Booking = () => {
         }
     }
    
-    const firebaseConfig = {
-        apiKey: "",
-        authDomain: "bluebirdmp-d5c19.firebaseapp.com",
-        projectId: "bluebirdmp-d5c19",
-        storageBucket: "bluebirdmp-d5c19.appspot.com",
-        messagingSenderId: "28101586112",
-        appId: "",
-      };
+    
     const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const databaseHandler = async () => {
+        try {
+            const docRef = await addDoc(collection(db, "bookings"), {
+                name: "",
+                date: "",
+                hours: [],
+                sessionType: "",
+            })
+            console.log("Doc ID: ", docRef);
+        } catch(e) {
+            console.error(e);
+        }
+    }
 
     const functions = getFunctions(app);
     const bookingEmail = httpsCallable(functions, "bookingEmail");
@@ -183,7 +194,7 @@ const Booking = () => {
                                 <option value="00">00</option>
                                 <option value="30">30</option>
                             </select>
-                            <select className='booking__form__fields__field__times__noon' value={daytime} onChange={(e) => {setDaytime(e.current.value)}} >
+                            <select  className='booking__form__fields__field__times__noon' value={daytime} onChange={(e) => {setDaytime(e.current.value)}} >
                                 <option value="AM">AM</option>
                                 <option value="PM">PM</option>
                             </select>
