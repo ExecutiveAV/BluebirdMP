@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { Calendar } from 'react-date-range';
 import { initializeApp } from 'firebase/app';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
@@ -10,67 +9,66 @@ import firebaseConfig from '../../firebaseConfig';
 
 import banner from '../../assets/images/bookings.png';
 
+import Portal from '../../containers/createPortal/createPortal';
+import Loader from '../../components/loader/loader.component';
+
 import "./booking.style.scss";
 
 const Booking = () => {
-    const [date, setDate] = useState("");
-    const [calendar, toggleCalendar] = useState(false);
-    const [booking, setBooking] = useState("");
     const [submission, setSubmission] =useState(false);
 
+    const [isLoading, setLoading] = useState(false)
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [session, setSession] = useState("");
     const [formattedDate, setFormattedDate] = useState("")
-    const [hour, setHour] = useState("08");
-    const [minutes, setMinutes] = useState("00");
-    const [daytime, setDaytime] = useState("PM");
-    const [message, setMessage] = useState("")
+    const [hour, setHour] = useState("");
+    const [message, setMessage] = useState("");
 
-    const ifEmpty = string => {
-        return string.length === 0 ? false : true;
+    //Warning System
+
+    const [firstNameWarning, setFirstNameWarning] = useState(false);
+    const [lastNameWarning, setLastNameWarning] = useState(false);
+    const [emailWarning, setEmailWarning] = useState(false);
+    const [sessionWarning, setSessionWarning] = useState(false);
+    const [dateWarning, setDateWarning] = useState(false);
+    const [timeWarning, setTimeWarning] = useState(false);
+
+    const [submitStatus, setSubmitStatus] = useState(null);
+    const [confirmationNumber, setConfirmationNumber] = useState("")
+
+    const isEmpty = string => {
+        return string.length === 0 ? true : false;
     }
 
     const validateDate = testdate => {
         const date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
-        console.log(date_regex.test(testdate));
+        return date_regex.test(testdate);
     }
 
     const submissionHandler = () => {
+        // Display submission status
         if (submission === true) {
             setSubmission(false);
         } else {
             setSubmission(true);
         }
-    }
+    };
 
     const dateFormatter = string => {
-        let unformattedDate = JSON.stringify(string).split("T")[0].replace(/(-)/g, "/");
-        unformattedDate = unformattedDate.split('"');
-        unformattedDate = unformattedDate[1].split("/");
-        unformattedDate.push(unformattedDate.splice(0, 1)[0])
-        unformattedDate =  unformattedDate.join("/");
-        setFormattedDate(unformattedDate)
-        return unformattedDate;
-    }
-
-    const dateHandler = (calendarDate) => {
-        setDate(calendarDate);
-        let verifiedDate = dateFormatter(calendarDate);
-        setBooking(verifiedDate);
-        handleCalendarToggle();
-    }
-
-    //Create transparent background to click out of the calendar ;) (L)
-    const handleCalendarToggle = () => {
-        if (calendar === true) {
-            toggleCalendar(false);
-        } else {
-            toggleCalendar(true);
+        let unformattedDate = string.split("-");
+        let buildingDate = [];
+        buildingDate.push(unformattedDate[1]);
+        buildingDate.push(unformattedDate[2]);
+        buildingDate.push(unformattedDate[0]);
+        buildingDate = buildingDate.join("/");
+        if (validateDate(buildingDate) === true) {
+            setFormattedDate(buildingDate)
+            return true;
         }
-    }
-   
+        return false;
+    };
     
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -87,42 +85,109 @@ const Booking = () => {
         } catch(e) {
             console.error(e);
         }
-    }
+    };
+
+    const generateConfirmationNumber = () => {
+        const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let token = '';
+        for (let i = 0; i < 6; i++) {
+            token += characters[Math.floor(Math.random() * characters.length )];
+        };
+        return token;
+    };
 
     const functions = getFunctions(app);
     const bookingEmail = httpsCallable(functions, "bookingEmail");
     const emailBody = {
       firstName: firstName,
       lastName: lastName,
-      confirmationNumber: "696969",
+      confirmationNumber: generateConfirmationNumber(),
       typeOfSession: session,
       date: formattedDate,
-      time: `${hour}:${minutes} ${daytime}`,
+      time: hour,
       email: email,
       message: message,
     };
 
     const sendEmailNow = () => {
-        bookingEmail(emailBody)
-        .then(result => {
-            const data = result.data;
-            console.log(data.text);
-        }).catch(err => {
-            console.error(err);
-        })
+        if (!validateAll()) {
+            setLoading(true)
+            bookingEmail(emailBody)
+            .then(result => {
+                submissionHandler()
+                setSubmitStatus(true);
+                setLoading(false)
+            }).catch(err => {
+                submissionHandler()
+                setSubmitStatus(false);
+                setLoading(false)
+                console.error("error: ", err);
+            })
+        }
+        
+    };
+
+    const formatTime = time => {
+        let formatTime = time.split(":");
+        let meridian = "";
+        let hour = formatTime[0];
+        if (hour > 11) {
+            meridian = " PM";
+            if (hour > 12) {
+                hour = hour - 12;
+            }
+        } else {
+            meridian = " AM";
+        }
+        formatTime[0] = hour
+        formatTime = formatTime.join(":");
+        formatTime = formatTime.concat(meridian);
+        setHour(formatTime);
     }
+
+    const setWarning = (field, setFieldWarning) => {
+        if (isEmpty(field)) {
+            setFieldWarning(true);
+            return true;
+        };
+        setFieldWarning(false)
+        return false;
+    };
+
+    const validateAll = () => {
+        let values = [];
+        values.push(setWarning(firstName, setFirstNameWarning));
+        values.push(setWarning(lastName, setLastNameWarning));
+        values.push(setWarning(email, setEmailWarning));
+        values.push(setWarning(session, setSessionWarning));
+        values.push(setWarning(formattedDate, setDateWarning));
+        values.push(setWarning(hour, setTimeWarning));
+        return values.includes(true);
+    };
 
     return (
         <section className='booking'>
 
             {
-                submission ? <section className='booking__confirmation' onClick={submissionHandler} >
-                    <section className='booking__confirmation__container' >
-                        <p className='booking__confirmation__container__X' >X</p>
-                        <p className='booking__confirmation__container__title' >All Done!</p>
-                        <p className='booking__confirmation__container__text' >Thank you for your inquiry. We will have someone reach out to you with more information regarding your request.</p>
+                submission ?
+                (
+                    submitStatus === true ?
+                        <section className='booking__confirmation' onClick={submissionHandler} >
+                            <section className='booking__confirmation__container' >
+                                <p className='booking__confirmation__container__X' >X</p>
+                                <p className='booking__confirmation__container__title' >All Done!</p>
+                                <p className='booking__confirmation__container__text' >Thank you for your inquiry. We will have someone reach out to you with more information regarding your request.</p>
+                            </section>
+                        </section> :
+                        <section className='booking__confirmation' onClick={submissionHandler} >
+                        <section className='booking__confirmation__container' >
+                            <p className='booking__confirmation__container__X' >X</p>
+                            <p className='booking__confirmation__container__title' >Something went wrong! :/</p>
+                            <p className='booking__confirmation__container__text' >That was weird. We couldn't complete the request. Please try again or contact us directly at (123) 456-7899</p>
+                        </section>
                     </section>
-                </section> : null
+                ) :
+                null
             }
 
             <section className='booking__banner' >
@@ -131,77 +196,47 @@ const Booking = () => {
             <section className='booking__form' >
                 <p className='booking__form__title' >BOOKINGS</p>
                 <section className='booking__form__field' >
-                    <p className='booking__form__field__title' >Name:</p>
+                    <p className='booking__form__field__title' >* Name:</p>
                     <section className='booking__form__field__inputs' >
-                        <input className='booking__form__field__inputs__input i' placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
-                        <input className='booking__form__field__inputs__input i' placeholder='Last Name'onChange={e => setLastName(e.target.value)} />
+                        <input className={`booking__form__field__inputs__input i ${firstNameWarning ? "warning" : ""}`} placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
+                        <input className={`booking__form__field__inputs__input i ${lastNameWarning ? "warning" : ""}`} placeholder='Last Name'onChange={e => setLastName(e.target.value)} />
                     </section>
                 </section>
                 <section className='booking__form__field' >
-                    <p className='booking__form__field__title' >E-mail Address:</p>
+                    <p className='booking__form__field__title' >* E-mail Address:</p>
                     <section className='booking__form__field__inputs' >
-                        <input className='booking__form__field__inputs__input' placeholder='E-mail' onChange={e => setEmail(e.target.value)} />
+                        <input className={`booking__form__field__inputs__input ${emailWarning ? "warning" : ""}`} placeholder='E-mail' onChange={e => setEmail(e.target.value)} />
                     </section>
                 </section>
                 <section className='booking__form__field' >
-                    <p className='booking__form__field__title' >Type of Sessions:</p>
+                    <p className='booking__form__field__title' >* Type of Sessions:</p>
                     <section className='booking__form__field__inputs' >
-                        <input className='booking__form__field__inputs__input' placeholder='Choose an Option' onChange={e => setSession(e.target.value)} />
+                        <select className={`booking__form__field__inputs__input ${sessionWarning ? "warning" : ""}`} placeholder='Choose an Option' onChange={e => setSession(e.target.value)} >
+                            <option selected disabled >-- Select an option --</option>
+                            <option >Portraits</option>
+                            <option >Baby Photos</option>
+                            <option >Landscape</option>
+                        </select>
                     </section>
                 </section>
                 <section className='booking__form__fields' >
                     <section className='booking__form__fields__field' >
-                        <p className='booking__form__fields__field__title' >Dates:</p>
+                        <p className='booking__form__fields__field__title' >* Dates:</p>
                         <section className='booking__form__fields__field__inputs' >
                             <input 
-                            onClick={handleCalendarToggle}
-                            className='booking__form__fields__field__inputs__input' placeholder='dd/mm/yyyy'
-                            id="dates" name='dates' value={booking}/>
+                            onChange={e => dateFormatter(e.target.value)}
+                            type="date"
+                            className={`booking__form__fields__field__inputs__input ${dateWarning ? "warning" : ""}`} placeholder='dd/mm/yyyy'
+                            id="dates" name='dates'/>
                         </section>
-                        {calendar ?
-                            <section className='booking__form__fields__field__calendar' >
-                                <section className='booking__form__fields__field__calendar__background' onClick={handleCalendarToggle} />
-                                <Calendar
-                                    className='booking__form__fields__field__calendar__calendar'
-                                    date={new Date()}
-                                    minDate={new Date()}
-                                    onChange={item => dateHandler(item)}
-                                    autocomplete="off"
-                                />
-                            </section> :
-                            null
-                        }
                     </section>
                     <section className='booking__form__fields__field' >
-                        <p className='booking__form__fields__field__title' >Times:</p>
+                        <p className='booking__form__fields__field__title' >* Times:</p>
                         <section className='booking__form__fields__field__times' >
-                            <select className='booking__form__fields__field__times__hours' name="hours" id="hours" value={hour} onChange={(e) => setHour(e.target.value)}>
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <p>:</p>
-                            <select className='booking__form__fields__field__times__minutes' name="minutes" id="minutes" value={minutes} onChange={(e) => setMinutes(e.target.value)}>
-                                <option value="00">00</option>
-                                <option value="30">30</option>
-                            </select>
-                            <select  className='booking__form__fields__field__times__noon' value={daytime} onChange={(e) => {setDaytime(e.current.value)}} >
-                                <option value="AM">AM</option>
-                                <option value="PM">PM</option>
-                            </select>
+                            <input placeholder='10:00 AM' type="time" className={`booking__form__fields__field__times__hours ${timeWarning ? "warning" : ""}`} name="hours" id="hours" onChange={(e) => formatTime(e.target.value)} />
                         </section>
                     </section>
                 </section>
-                {/* time: 3 separe range inputs to select by block*/}
 
                 <section className='booking__form__field' >
                     <p className='booking__form__field__title' >Message:</p>
@@ -211,6 +246,14 @@ const Booking = () => {
                 </section>
                 <p className='booking__form__CTA' onClick={() => sendEmailNow()} >SUBMIT</p>
             </section>
+
+            {
+                isLoading ? 
+                    <Portal className="loaderPortal" >
+                        <Loader /> 
+                    </Portal> :
+                null
+            }
         </section>
     );
 };

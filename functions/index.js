@@ -9,14 +9,13 @@ const db = admin.firestore();
 
 const sgMail = require("@sendgrid/mail");
 
-const API_KEY = functions.config().sendgrid.key;
-const TEMPLATE_ID = functions.config().sendgrid.template;
+const API_KEY = process.env.SENDGRIDAPI;
+const TEMPLATE_ID = process.env.TEMPLATE;
 
 sgMail.setApiKey(API_KEY);
 
 exports.bookingEmail = functions.https.onCall((data, contetx) => {
-  const { firstName, lastName, email, phoneNumber, typeOfSession, date, time, message } = data;
-  const confirmationNumber = "696969";
+  const { firstName, lastName, email, phoneNumber, typeOfSession, date, time, message, confirmationNumber } = data;
 
   const msg = {
     to: email,
