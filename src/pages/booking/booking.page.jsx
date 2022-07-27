@@ -15,6 +15,9 @@ import Loader from '../../components/loader/loader.component';
 import "./booking.style.scss";
 
 const Booking = () => {
+
+    //toggles the submission modal
+    
     const [submission, setSubmission] =useState(false);
 
     const [isLoading, setLoading] = useState(false)
@@ -35,7 +38,11 @@ const Booking = () => {
     const [dateWarning, setDateWarning] = useState(false);
     const [timeWarning, setTimeWarning] = useState(false);
 
+    //
+
+    //displays either a succes or failed message
     const [submitStatus, setSubmitStatus] = useState(null);
+
     const [confirmationNumber, setConfirmationNumber] = useState("")
 
     const isEmpty = string => {
