@@ -15,9 +15,16 @@ import Loader from '../../components/loader/loader.component';
 import "./booking.style.scss";
 
 const Booking = () => {
+    
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
 
     //toggles the submission modal
-    
+
     const [submission, setSubmission] =useState(false);
 
     const [isLoading, setLoading] = useState(false)
@@ -31,8 +38,8 @@ const Booking = () => {
 
     //Warning System
 
-    const [firstNameWarning, setFirstNameWarning] = useState(false);
-    const [lastNameWarning, setLastNameWarning] = useState(false);
+    const [firstNameWarning, setFirstNameWarning] = useState("");
+    const [lastNameWarning, setLastNameWarning] = useState("");
     const [emailWarning, setEmailWarning] = useState(false);
     const [sessionWarning, setSessionWarning] = useState(false);
     const [dateWarning, setDateWarning] = useState(false);
@@ -43,16 +50,37 @@ const Booking = () => {
     //displays either a succes or failed message
     const [submitStatus, setSubmitStatus] = useState(null);
 
-    const [confirmationNumber, setConfirmationNumber] = useState("")
+    const isItAValidEmail = (input) => {
+
+        const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9.-]+)*$/;
+      
+        if (input.match(validRegex)) {
+          return true;
+        } else {
+          return false;
+        }
+      
+    };
+
+    const handleEmailChange = field => {
+        if (isItAValidEmail(field)) {
+            console.log("true: ", field);
+            setEmail(field);
+            setEmailWarning(false);
+        } else {
+            console.log("false: ", field);
+            setEmailWarning(true)
+        };
+    };
 
     const isEmpty = string => {
         return string.length === 0 ? true : false;
-    }
+    };
 
     const validateDate = testdate => {
         const date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
         return date_regex.test(testdate);
-    }
+    };
 
     const submissionHandler = () => {
         // Display submission status
@@ -76,7 +104,18 @@ const Booking = () => {
         }
         return false;
     };
-    
+
+    const nonAlphabeticNameWarning = (givenName, setGivenName) => {
+        const validRegex = /^[a-zA-Z]*$/;
+        if (!givenName.match(validRegex)) {
+            setGivenName("weird");
+        } else {
+            setGivenName("");
+        };
+    };
+
+    const nonAlphanumberic = ["~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","}","[","]","|","\\",":",";","<",",",">",".","?", "/"];
+
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
@@ -212,7 +251,7 @@ const Booking = () => {
                 <section className='booking__form__field' >
                     <p className='booking__form__field__title' >* E-mail Address:</p>
                     <section className='booking__form__field__inputs' >
-                        <input className={`booking__form__field__inputs__input ${emailWarning ? "warning" : ""}`} placeholder='E-mail' onChange={e => setEmail(e.target.value)} />
+                        <input className={`booking__form__field__inputs__input ${emailWarning ? "warning" : ""}`} placeholder='E-mail' onChange={e => handleEmailChange(e.target.value)} />
                     </section>
                 </section>
                 <section className='booking__form__field' >
@@ -234,13 +273,16 @@ const Booking = () => {
                             onChange={e => dateFormatter(e.target.value)}
                             type="date"
                             className={`booking__form__fields__field__inputs__input ${dateWarning ? "warning" : ""}`} placeholder='dd/mm/yyyy'
-                            id="dates" name='dates'/>
+                            id="dates"
+                            name='dates'
+                            min={today}
+                            />
                         </section>
                     </section>
                     <section className='booking__form__fields__field' >
                         <p className='booking__form__fields__field__title' >* Times:</p>
                         <section className='booking__form__fields__field__times' >
-                            <input placeholder='10:00 AM' type="time" className={`booking__form__fields__field__times__hours ${timeWarning ? "warning" : ""}`} name="hours" id="hours" onChange={(e) => formatTime(e.target.value)} />
+                            <input placeholder='10:00 AM' type="time" className={`booking__form__fields__field__times__hours ${timeWarning ? "warning" : ""}`} name="hours" id="hours" onChange={(e) => formatTime(e.target.value)} step={1800} />
                         </section>
                     </section>
                 </section>

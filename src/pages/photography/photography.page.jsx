@@ -62,7 +62,7 @@ const Photography = () => {
                             <Route exact path='contactus' element={<Contactus />} />
                         </Routes>
                     </section>
-                <Footer />
+                    <Footer />
                 </section>
             </section>
         </section>

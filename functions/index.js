@@ -10,17 +10,35 @@ const db = admin.firestore();
 const sgMail = require("@sendgrid/mail");
 
 const API_KEY = process.env.SENDGRIDAPI;
-const TEMPLATE_ID = process.env.TEMPLATE;
+const CLIENT_TEMPLATE_ID = process.env.CLIENT_TEMPLATE;
+const STUDIO_TEMPLATE_ID = process.env.STUDIO_TEMPLATE;
 
 sgMail.setApiKey(API_KEY);
 
 exports.bookingEmail = functions.https.onCall((data, contetx) => {
   const { firstName, lastName, email, phoneNumber, typeOfSession, date, time, message, confirmationNumber } = data;
 
-  const msg = {
+  const studioMsg = {
+    to: "alejandro@executiveav.llc",
+    from: "alejandro@executiveav.llc",
+    templateId: STUDIO_TEMPLATE_ID,
+    dynamic_template_data: {
+      subject: `Someone booked a ${typeOfSession} session, ${confirmationNumber}`,
+      firstName: firstName,
+      lastName: lastName,
+      confirmationCode: confirmationNumber,
+      sessionType: typeOfSession,
+      date: date,
+      time: time,
+      email: email,
+      message: message,
+    },
+  }
+
+  const clientMsg = {
     to: email,
     from: "alejandro@executiveav.llc",
-    templateId: TEMPLATE_ID,
+    templateId: CLIENT_TEMPLATE_ID,
     dynamic_template_data: {
       subject: `Booking confirmation. Thanks ${firstName} ${lastName}`,
       firstName: firstName,
@@ -32,7 +50,7 @@ exports.bookingEmail = functions.https.onCall((data, contetx) => {
     },
   };
 
-  sgMail.send(msg)
+  sgMail.send(clientMsg)
     .then((response) => {
       console.log("Status Code: ", response[0].statusCode)
       console.log("Headers: ", response[0].headers)
@@ -43,5 +61,18 @@ exports.bookingEmail = functions.https.onCall((data, contetx) => {
       if (error.response) {
         console.error("Sendgrid Error Body: ", error.response.body)
       }
+    });
+
+    sgMail.send(studioMsg)
+    .then((response) => {
+      console.log("Status Code: ", response[0].statusCode)
+      console.log("Headers: ", response[0].headers)
     })
+    .catch((error) => {
+      console.error("Sendgrid Error: ", error);
+
+      if (error.response) {
+        console.error("Sendgrid Error Body: ", error.response.body)
+      }
+    });
 });
