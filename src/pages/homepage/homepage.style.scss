@@ -20,6 +20,7 @@
     &__title {
         margin: auto auto 25px;
         height: 75px;
+        min-height: 75px;
         object-fit: cover;
         animation: forwards;
     }
@@ -56,6 +57,7 @@
         &__title {
             margin: auto auto 50px;
             height: 180px;
+            min-height: 180px;
             width: auto;
         }
 
@@ -83,6 +85,7 @@
     .homepage {
         &__title {
             width: 1000px;
+            min-height: 180px;
             height: auto;
         }
 
