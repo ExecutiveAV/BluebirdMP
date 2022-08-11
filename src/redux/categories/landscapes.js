@@ -6,33 +6,38 @@ import e from '../../assets/images/portfolio/landscape/optimized/e.jpg';
 
 const landscapes = [
     {
-        name: "a",
+        name: "John Doe",
+        session: "Maternity Shoot",
         src: a,
-        id: 'a',
+        id: 'la',
         alt: "a"
     },
     {
-        name: "b",
+        name: "John Doe",
+        session: "Maternity Shoot",
         src: b,
-        id: 'b',
+        id: 'lb',
         alt: "b"
     },
     {
-        name: "c",
+        name: "John Doe",
+        session: "Maternity Shoot",
         src: c,
-        id: 'c',
+        id: 'lc',
         alt: "c"
     },
     {
-        name: "d",
+        name: "John Doe",
+        session: "Maternity Shoot",
         src: d,
-        id: 'd',
+        id: 'ld',
         alt: "d"
     },
     {
-        name: "e",
+        name: "John Doe",
+        session: "Maternity Shoot",
         src: e,
-        id: 'e',
+        id: 'le',
         alt: "e"
     },
 ];

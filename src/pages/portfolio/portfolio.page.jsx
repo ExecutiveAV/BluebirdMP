@@ -15,8 +15,9 @@ const Portfolio = () => {
     const picturesSrc = useSelector(state => state.categories);
 
     let pictures = picturesSrc[category].pictures.map(({ id, src, alt }) => {
-        return <PortfolioImageCard key={id} src={src} alt={alt} odd={oddity} />
-    })
+        return (
+                <PortfolioImageCard id={id} key={id} src={src} alt={alt} odd={oddity} category={category} />
+    );});
 
     const dispatch = useDispatch();
 

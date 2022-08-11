@@ -2,15 +2,15 @@
 
 .menu {
     position: fixed;
-    top: 60px;
+    top: 64px;
     left: 0px;
     width: 100%;
     z-index: 55;
-    background-color: #d9d9d9d4;
+    background-color: rgba(217, 217, 217, 0.98);
+    padding-top: 14px;
+    max-height: 900px;
+    transition: max-height 0.25s ease-in;
     text-align: center;
-    transition: all ease-in 1s;
-    opacity: 100%;
-    padding-top: 40px;
     
     &__link {
         display: block;
@@ -62,17 +62,16 @@
         & .container {
 
             &__sublink {
-                margin-top: 40px;
+                margin-top: 24 x;
             }
         }
     }
 
     &.hidden {
-        display: none;
-        top: -80px;
-        height: 0px;
-        transition: all ease-in 1s;
-        opacity: 0;
+        max-height: 0;
+        padding: 0px;
+        transition: max-height 0.15s ease-out;
+        overflow: hidden;
     }
 }
 

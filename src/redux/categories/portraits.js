@@ -21,123 +21,143 @@ import t from '../../assets/images/portfolio/portraits/optimized/t.jpg';
 
 const portraits = [
     {
-        name: "a",
+        name: "John Doe",
+        session: "Family Session",
         src: a,
-        id: 'a',
+        id: 'pa',
         alt: "a"
     },
     {
-        name: "b",
+        name: "John Doe",
+        session: "Family Session",
         src: b,
-        id: 'b',
+        id: 'pb',
         alt: "b"
     },
     {
-        name: "c",
+        name: "John Doe",
+        session: "Family Session",
         src: c,
-        id: 'c',
+        id: 'pc',
         alt: "c"
     },
     {
-        name: "d",
+        name: "John Doe",
+        session: "Family Session",
         src: d,
-        id: 'd',
+        id: 'pd',
         alt: "d"
     },
     {
-        name: "e",
+        name: "John Doe",
+        session: "Family Session",
         src: e,
-        id: 'e',
+        id: 'pe',
         alt: "e"
     },
     {
-        name: "f",
+        name: "John Doe",
+        session: "Family Session",
         src: f,
-        id: 'f',
+        id: 'pf',
         alt: "f"
     },
     {
-        name: "g",
+        name: "John Doe",
+        session: "Family Session",
         src: g,
-        id: 'g',
+        id: 'pg',
         alt: "g"
     },
     {
-        name: "h",
+        name: "John Doe",
+        session: "Family Session",
         src: h,
-        id: 'h',
+        id: 'ph',
         alt: "h"
     },
     {
-        name: "i",
+        name: "John Doe",
+        session: "Family Session",
         src: i,
-        id: 'i',
+        id: 'pi',
         alt: "i"
     },
     {
-        name: "j",
+        name: "John Doe",
+        session: "Family Session",
         src: j,
-        id: 'j',
+        id: 'pj',
         alt: "j"
     },
     {
-        name: "k",
+        name: "John Doe",
+        session: "Family Session",
         src: k,
-        id: 'k',
+        id: 'pk',
         alt: "k"
     },
     {
-        name: "l",
+        name: "John Doe",
+        session: "Family Session",
         src: l,
-        id: 'l',
+        id: 'pl',
         alt: "l"
     },
     {
-        name: "m",
+        name: "John Doe",
+        session: "Family Session",
         src: m,
-        id: 'm',
+        id: 'pm',
         alt: "m"
     },
     {
-        name: "n",
+        name: "John Doe",
+        session: "Family Session",
         src: n,
-        id: 'n',
+        id: 'pn',
         alt: "n"
     },
     {
-        name: "o",
+        name: "John Doe",
+        session: "Family Session",
         src: o,
-        id: 'o',
+        id: 'po',
         alt: "o"
     },
     {
-        name: "p",
+        name: "John Doe",
+        session: "Family Session",
         src: p,
-        id: 'p',
+        id: 'pp',
         alt: "p"
     },
     {
-        name: "q",
+        name: "John Doe",
+        session: "Family Session",
         src: q,
-        id: 'q',
+        id: 'pq',
         alt: "q"
     },
     {
-        name: "r",
+        name: "John Doe",
+        session: "Family Session",
         src: r,
-        id: 'r',
+        id: 'pr',
         alt: "r"
     },
     {
-        name: "s",
+        name: "John Doe",
+        session: "Family Session",
         src: s,
-        id: 's',
+        id: 'ps',
         alt: "s"
     },
     {
-        name: "t",
+        name: "John Doe",
+        session: "Family Session",
         src: t,
-        id: 't',
+        id: 'pt',
         alt: "t"
     }
 ];

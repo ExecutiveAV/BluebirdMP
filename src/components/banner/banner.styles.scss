@@ -2,7 +2,7 @@
 
 .banner {
     width: 100%;
-    height: min-content;
+    height: 69px;
     display: inline-flex;
     text-align: center;
     justify-content: space-around;
@@ -37,23 +37,29 @@
         z-index: 10;
         align-self: center;
         margin-right: auto;
-        left: 0px;
+        left: 16px;
 
-        &__bar1, &__bar2, &__bar3 {
-            width: 35px;
-            height: 2px;
-            background-color: #333;
-            margin: 6px 0;
+        &__bar1, &__bar3{
+            width: 25px;
+            height: 0px;
+            background: rgba(91, 92, 91, 0.95);
+            border: 1px solid rgba(91, 92, 91, 0.45);
+            margin: 4px 0;
             transition: 0.4s;
+            border-radius: 2px;
         }
 
         &__bar2 {
-            width: 17px;
+            width: 20px;
+            height: 0px;
+            background: rgba(91, 92, 91, 0.95);
+            border: 1px solid rgba(91, 92, 91, 0.45);
+            border-radius: 2px;
         }
 
         .change &__bar1 {
-            -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-            transform: rotate(-45deg) translate(-8px, 6px);
+            -webkit-transform: rotate(-45deg) translate(-8px, 6px);
+            transform: rotate(-45deg) translate(-5px, 6px);
         }
 
         .change &__bar2 {
@@ -62,7 +68,7 @@
 
         .change &__bar3 {
             -webkit-transform: rotate(45deg) translate(-8px, -8px);
-            transform: rotate(45deg) translate(-4px, -5px);
+            transform: rotate(45deg) translate(-2px, -5px);
         }
 
         &.change {
@@ -77,11 +83,11 @@
         margin-right: auto;
         margin-left: auto;
         z-index: 50;
-        width: 180px;
 
         &__src {
+            margin: 0px;
             width: 180px;
-            
+            margin: -1px -1px -5px -1px;
         }
     }
 

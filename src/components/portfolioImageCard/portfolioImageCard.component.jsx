@@ -2,9 +2,14 @@ import React from 'react';
 
 import './portfolioImageCard.styles.scss';
 
-const PortfolioImageCard = ({ key, src, alt, odd }) => {
+import { Link } from 'react-router-dom';
+
+const PortfolioImageCard = ({ key, src, alt, odd, category, id }) => {
+    console.log(id);
     return (
-        <img key={key} src={src} className={`portfolio-image-card ${odd ? "wide" : ""}`} alt={alt} />
+        <Link to={`/photography/portfolio/${category}/${id}`} >
+            <img id={id} key={key} src={src} className={`portfolio-image-card ${odd ? "wide" : ""}`} alt={alt} />
+        </Link>
     );
 };
 

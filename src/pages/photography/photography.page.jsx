@@ -10,6 +10,7 @@ import Contactus from '../contactus/contactus.pages';
 import Banner from '../../components/banner/banner.component';
 import Menu from '../../components/menu/menu.components';
 import Footer from '../../components/footer/footer.component';
+import FullView from '../portfolio/fullView/fullView.page';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { closeMenu } from '../../redux/menu/menu.slice';
@@ -60,6 +61,7 @@ const Photography = () => {
                             <Route exact path='booking' element={<Booking />} />
                             <Route exact path='testimonials' element={<Testimonials />} />
                             <Route exact path='contactus' element={<Contactus />} />
+                            <Route exact path='portfolio/:category/:image' element={<FullView />} />
                         </Routes>
                     </section>
                     <Footer />

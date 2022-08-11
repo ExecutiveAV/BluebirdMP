@@ -12,70 +12,81 @@ import k from '../../assets/images/portfolio/babyPhotos/optimized/k.jpg';
 
 const babyphotos = [
     {
-        name: "a",
+        name: "John Doe",
         src: a,
-        id: 'a',
-        alt: "a"
+        id: 'ba',
+        alt: "a",
+        session: "Profesional Headshot"
     },
     {
-        name: "b",
+        name: "John Doe",
         src: b,
-        id: 'b',
-        alt: "b"
+        id: 'bb',
+        alt: "b",
+        session: "Profesional Headshot"
     },
     {
-        name: "c",
+        name: "John Doe",
         src: c,
-        id: 'c',
-        alt: "c"
+        id: 'bc',
+        alt: "c",
+        session: "Profesional Headshot"
     },
     {
-        name: "d",
+        name: "John Doe",
         src: d,
-        id: 'd',
-        alt: "d"
+        id: 'bd',
+        alt: "d",
+        session: "Profesional Headshot"
     },
     {
-        name: "e",
+        name: "John Doe",
         src: e,
-        id: 'e',
-        alt: "e"
+        id: 'be',
+        alt: "e",
+        session: "Profesional Headshot"
     },
     {
-        name: "f",
+        name: "John Doe",
         src: f,
-        id: 'f',
-        alt: "f"
+        id: 'bf',
+        alt: "f",
+        session: "Profesional Headshot"
     },
     {
-        name: "g",
+        name: "John Doe",
         src: g,
-        id: 'g',
-        alt: "g"
+        id: 'bg',
+        alt: "g",
+        session: "Profesional Headshot"
     },
     {
-        name: "h",
+        name: "John Doe",
         src: h,
-        id: 'h',
-        alt: "h"
+        id: 'bh',
+        alt: "h",
+        session: "Profesional Headshot"
     },
     {
-        name: "i",
+        name: "John Doe",
         src: i,
-        id: 'i',
-        alt: "i"
+        id: 'bi',
+        alt: "i",
+        session: "Profesional Headshot"
     },
     {
-        name: "j",
+        name: "John Doe",
         src: j,
-        id: 'j',
-        alt: "j"
+        id: 'bj',
+        alt: "j",
+        session: "Profesional Headshot"
     },
     {
-        name: "k",
+        name: "John Doe",
         src: k,
-        id: 'k',
-        alt: "k"
+        id: 'bk',
+        alt: "k",
+        session: "Profesional Headshot"
     }
 ];
 
