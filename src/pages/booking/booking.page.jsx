@@ -242,20 +242,20 @@ const Booking = () => {
             <section className='booking__form' >
                 <p className='booking__form__title' >BOOKINGS</p>
                 <section className='booking__form__field' >
-                    <p className='booking__form__field__title' >* Name:</p>
+                    <p className='booking__form__field__title' >Name:</p>
                     <section className='booking__form__field__inputs' >
                         <input className={`booking__form__field__inputs__input i ${firstNameWarning ? "warning" : ""}`} placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
                         <input className={`booking__form__field__inputs__input i ${lastNameWarning ? "warning" : ""}`} placeholder='Last Name'onChange={e => setLastName(e.target.value)} />
                     </section>
                 </section>
                 <section className='booking__form__field' >
-                    <p className='booking__form__field__title' >* E-mail Address:</p>
+                    <p className='booking__form__field__title' >E-mail Address:</p>
                     <section className='booking__form__field__inputs' >
                         <input className={`booking__form__field__inputs__input ${emailWarning ? "warning" : ""}`} placeholder='E-mail' onChange={e => handleEmailChange(e.target.value)} />
                     </section>
                 </section>
                 <section className='booking__form__field' >
-                    <p className='booking__form__field__title' >* Type of Sessions:</p>
+                    <p className='booking__form__field__title' >Type of Sessions:</p>
                     <section className='booking__form__field__inputs' >
                         <select className={`booking__form__field__inputs__input ${sessionWarning ? "warning" : ""}`} placeholder='Choose an Option' onChange={e => setSession(e.target.value)} >
                             <option selected disabled >-- Select an option --</option>
@@ -267,7 +267,7 @@ const Booking = () => {
                 </section>
                 <section className='booking__form__fields' >
                     <section className='booking__form__fields__field' >
-                        <p className='booking__form__fields__field__title' >* Dates:</p>
+                        <p className='booking__form__fields__field__title' >Dates:</p>
                         <section className='booking__form__fields__field__inputs' >
                             <input 
                             onChange={e => dateFormatter(e.target.value)}
@@ -280,7 +280,7 @@ const Booking = () => {
                         </section>
                     </section>
                     <section className='booking__form__fields__field' >
-                        <p className='booking__form__fields__field__title' >* Times:</p>
+                        <p className='booking__form__fields__field__title' >Times:</p>
                         <section className='booking__form__fields__field__times' >
                             <input placeholder='10:00 AM' type="time" className={`booking__form__fields__field__times__hours ${timeWarning ? "warning" : ""}`} name="hours" id="hours" onChange={(e) => formatTime(e.target.value)} step={1800} />
                         </section>
@@ -288,7 +288,7 @@ const Booking = () => {
                 </section>
 
                 <section className='booking__form__field' >
-                    <p className='booking__form__field__title' >Message:</p>
+                    <p className='booking__form__field__title message' >Message:</p>
                     <section className='booking__form__field__inputs' >
                         <textarea onChange={(e) => setMessage(e.target.value)} value={message} type="text" className='booking__form__field__inputs__textarea' placeholder='Type here' />
                     </section>
