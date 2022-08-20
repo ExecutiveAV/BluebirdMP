@@ -1,0 +1,21 @@
+.indexer {
+    display: inline-flex;
+    margin: auto auto 7px;
+    justify-content: space-between;
+    width: 157px;
+
+    &__index {
+        display: inline-flex;
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+
+        & p {
+            margin: 0 4px;
+            cursor: pointer;
+        }
+    }
+
+    &__arrow {
+        cursor: pointer;
+    }
+}

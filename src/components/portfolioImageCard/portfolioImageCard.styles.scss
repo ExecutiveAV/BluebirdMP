@@ -22,7 +22,8 @@
 
 @include desktop {
     .portfolio-image-card {
-        height: 300px;
+        height: 400px;
+        width: 300px;
     }
     .wide:last-child {
         grid-column: unset;

@@ -1,0 +1,15 @@
+.review {
+    display: inline-flex;
+    flex-direction: column;
+    width: 366px;
+    height: 642px;
+    background-color: #d1f0ff73;
+    margin: 18px auto 22px;
+    text-align: left;
+
+    &__image {
+        width: 352px;
+        height: 270px;
+        margin: 15px auto 30px;
+    }
+}

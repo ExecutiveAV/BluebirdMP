@@ -17,6 +17,8 @@
             margin-left: auto;
             height: 100%;
             overflow-x: hidden;
+            display: inline-flex;
+            flex-direction: column;
         }
     }
 }

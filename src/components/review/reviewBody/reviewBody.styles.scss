@@ -1,0 +1,14 @@
+.reviewBody {
+    font-family: "Montserrat", sans-serif;
+
+    &__title {
+        margin: 10px 35px 0;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    &__body {
+        margin: 12px 35px;
+        font-size: 12px;
+    }
+}
