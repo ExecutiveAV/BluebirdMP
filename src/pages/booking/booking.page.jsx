@@ -64,11 +64,9 @@ const Booking = () => {
 
     const handleEmailChange = field => {
         if (isItAValidEmail(field)) {
-            console.log("true: ", field);
             setEmail(field);
             setEmailWarning(false);
         } else {
-            console.log("false: ", field);
             setEmailWarning(true)
         };
     };

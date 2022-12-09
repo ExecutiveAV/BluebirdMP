@@ -80,7 +80,7 @@
     .menu {
         display: block;
         text-align: left;
-        position: fixed;
+        position: sticky;
         top: 58px;
         left: 40px;
         border-right: 4px #d2effe solid;
@@ -93,7 +93,7 @@
         &.hidden {
             display: block;
             text-align: left;
-            position: fixed;
+            position: sticky;
             top: 58px;
             left: 40px;
             border-right: 4px #d2effe solid;
